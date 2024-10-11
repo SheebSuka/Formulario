@@ -45,6 +45,4 @@ if (isset($data['name']) && isset($data['lastName']) && isset($data['gender']) &
 // Cerrar la conexión
 mysqli_close($conn);
     
-
-
 ?>
