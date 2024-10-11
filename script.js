@@ -74,4 +74,27 @@ document.getElementById('buttonAjax').addEventListener('click', function (event)
     });
 });
 
+//Eliminar con AJAX
+document.getElementById('btn-eliminar-ajax').addEventListener('click', function (event) {
+    event.preventDefault();
+
+    //Obtener el ID del registro a eliminar
+    const idEliminar = document.getElementById('id-eliminar').value;
+
+    $.ajax({
+        type: 'DELETE',
+        url: 'eliminar.php',
+        data: { id: idEliminar },
+        success: function (response) {
+            console.log('Registro agregado correctamente :D', response);
+            alert('Registro ELIMINADO con Exito');
+        },
+        error: function (xhr, status, error) {
+            console.error('Error al eliminar el registro:', error);
+            alert('Error al eliminar el registro');
+        }
+    });
+});
+
+
 
