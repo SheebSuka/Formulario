@@ -1,13 +1,13 @@
-document.getElementById('user').addEventListener('submit', function (event) {
+document.getElementById('buttonFetch').addEventListener('click', function (event) {
     event.preventDefault();
 
-    //Se capturan datos.
+    // Se capturan datos.
     const name = document.getElementById('name').value;
     const lastName = document.getElementById('lastName').value;
     const gender = document.getElementById('gender').value;
     const date = document.getElementById('date').value;
 
-    //Se crea un objeto para los datos del formulario
+    // Se crea un objeto para los datos del formulario
     const data = {
         name: name,
         lastName: lastName,
@@ -17,7 +17,7 @@ document.getElementById('user').addEventListener('submit', function (event) {
 
     console.log("Datos capturados:", name, lastName, gender, date);
 
-    //Solicituda para conexion Pe ashe pe
+    // Llamada Fetch
     fetch('conexion.php', {
         method: 'POST',
         headers: {
@@ -28,11 +28,48 @@ document.getElementById('user').addEventListener('submit', function (event) {
         .then(response => response.text())
         .then(data => {
             console.log('Success :D', data);
-            alert('Datos enviados correctamente');
+            alert('Datos enviados con FETCH');
         })
         .catch(error => {
             console.error('Error:', error);
-            alert('Error al enviar los datos');
+            alert('Error al enviar los datos con FETCH');
         });
+});
 
+// Función para enviar datos con AJAX
+document.getElementById('buttonAjax').addEventListener('click', function (event) {
+    event.preventDefault();
+
+    // Se capturan datos.
+    const name = document.getElementById('name').value;
+    const lastName = document.getElementById('lastName').value;
+    const gender = document.getElementById('gender').value;
+    const date = document.getElementById('date').value;
+
+    // Se crea un objeto para los datos del formulario
+    const data = {
+        name: name,
+        lastName: lastName,
+        gender: gender,
+        date: date
+    };
+
+    console.log("Datos capturados:", name, lastName, gender, date);
+
+    // Llamada AJAX
+    $.ajax({
+        type: 'POST',
+        url: 'conexion.php',
+        data: JSON.stringify(data),
+        contentType: 'application/json',
+        dataType: 'text',
+        success: function (response) {
+            console.log('Success :D', response);
+            alert('Datos enviados con AJAX');
+        },
+        error: function (xhr, status, error) {
+            console.error('Error:', error);
+            alert('Error al enviar los datos con AJAX');
+        }
+    });
 });
