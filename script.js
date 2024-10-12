@@ -1,4 +1,4 @@
-document.getElementById('buttonFetch').addEventListener('click', function (event) {
+document.getElementById('buttonFetch').addEventListener('click', function (event) {  //<-- SUBIR DATOS
     event.preventDefault();
 
     // Se capturan datos.
@@ -37,7 +37,7 @@ document.getElementById('buttonFetch').addEventListener('click', function (event
 });
 
 // Función para enviar datos con AJAX
-document.getElementById('buttonAjax').addEventListener('click', function (event) {
+document.getElementById('buttonAjax').addEventListener('click', function (event) { //<-- SUBIR DATOS
     event.preventDefault();
 
     // Se capturan datos.
@@ -91,7 +91,7 @@ document.getElementById('buttonAjax').addEventListener('click', function (event)
 });
 
 //Eliminar con AJAX
-document.getElementById('btn-eliminar-ajax').addEventListener('click', function (event) {
+document.getElementById('btn-eliminar-ajax').addEventListener('click', function (event) { //<- ELIMINAR DATOS
     event.preventDefault();
 
     //Obtener el ID del registro a eliminar
