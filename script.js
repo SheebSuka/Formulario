@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', function () {
     document.getElementById('buttonFetch').addEventListener('click', function (event) {
         event.preventDefault();
 
-        const name = document.getElementById('name').value.trim();
+        const name = document.getElementById('name').value.trim(); //<-- Se utilza Trim para evitar falsos positivos
         const lastName = document.getElementById('lastName').value.trim();
         const gender = document.getElementById('gender').value.trim();
         const date = document.getElementById('date').value.trim();
@@ -40,15 +40,15 @@ document.addEventListener('DOMContentLoaded', function () {
             },
             body: JSON.stringify(data)
         })
-        .then(response => response.text())
-        .then(data => {
-            console.log('Success:', data);
-            alert('Datos enviados con éxito');
-        })
-        .catch(error => {
-            console.error('Error:', error);
-            alert('Error al enviar los datos');
-        });
+            .then(response => response.text())
+            .then(data => {
+                console.log('Success:', data);
+                alert('Datos enviados con éxito');
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Error al enviar los datos');
+            });
     });
 
     // Evento para enviar datos con AJAX
@@ -141,14 +141,14 @@ document.addEventListener('DOMContentLoaded', function () {
         fetch(`conexion.php?id=${id}`, {
             method: 'DELETE'
         })
-        .then(response => response.text())
-        .then(data => {
-            console.log('Registro eliminado:', data);
-            alert('Registro eliminado con éxito');
-        })
-        .catch(error => {
-            console.error('Error:', error);
-            alert('Error al eliminar el registro');
-        });
+            .then(response => response.text())
+            .then(data => {
+                console.log('Registro eliminado:', data);
+                alert('Registro eliminado con éxito');
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Error al eliminar el registro');
+            });
     });
 });
