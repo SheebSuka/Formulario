@@ -184,6 +184,7 @@ document.getElementById('btn-actualizar-php').addEventListener('click', function
         });
 });
 
+//ACTUALIZAR DATOS CON AJAX
 document.getElementById('btn-actualizar-ajax').addEventListener('click', function (event) {
     event.preventDefault();
 
