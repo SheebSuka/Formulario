@@ -1,6 +1,7 @@
 <?php
+
 header("Access-Control-Allow-Origin: *");
-header("Access-Control-Allow-Methods: POST");
+header("Access-Control-Allow-Methods: POST, DELETE");
 header("Access-Control-Allow-Headers: Content-Type");
 
 $servidor = 'localhost';
@@ -8,7 +9,7 @@ $user = 'root';
 $password = '';
 $database = "formulario_db";
 
-//Conectar a la base de datos
+// Conectar a la base de datos
 $conn = mysqli_connect($servidor, $user, $password, $database);
 
 if (!$conn) {
@@ -16,18 +17,32 @@ if (!$conn) {
     echo 'no :(';
 }
 
-//Leer datos tirados por FETCH
+// AQUI SE AGREGA
+// Verificar si el método HTTP es DELETE para eliminar
+if ($_SERVER['REQUEST_METHOD'] === 'DELETE') {
+    $id = $_GET['id'];
+    $eliminar = "DELETE FROM users WHERE id = '$id'";
+
+    // Ejecutar la consulta
+    if (mysqli_query($conn, $eliminar)) {
+        echo "Registro eliminado correctamente";
+    } else {
+        echo "Error al eliminar registro: " . mysqli_error($conn);
+    }
+    mysqli_close($conn);
+    exit(); // Termina aquí si se realizó la eliminación
+}
+
+// Si no es DELETE, se asume que es POST para inserción de datos
 $input = file_get_contents('php://input');
 $data = json_decode($input, true);
 
-//Verficacion si los datos entraron o nah
+// Verificar si se recibieron todos los datos necesarios para insertar
 if (isset($data['name']) && isset($data['lastName']) && isset($data['gender']) && isset($data['date'])) {
-    # balls
     $name = mysqli_real_escape_string($conn, $data['name']);
     $lastName = mysqli_real_escape_string($conn, $data['lastName']);
     $gender = mysqli_real_escape_string($conn, $data['gender']);
     $date = mysqli_real_escape_string($conn, $data['date']);
-
 
     // Insertar datos en la tabla
     $insertData = "INSERT INTO users (name, lastName, gender, date) VALUES ('$name', '$lastName', '$gender', '$date')";
@@ -44,5 +59,5 @@ if (isset($data['name']) && isset($data['lastName']) && isset($data['gender']) &
 
 // Cerrar la conexión
 mysqli_close($conn);
-    
+
 ?>

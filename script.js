@@ -90,33 +90,33 @@ document.getElementById('buttonAjax').addEventListener('click', function (event)
     xhr.send(JSON.stringify(data));
 });
 
-//Eliminar con AJAX
-document.getElementById('btn-eliminar-ajax').addEventListener('click', function (event) { //<- ELIMINAR DATOS
+//Eliminar con PHP y JS
+document.getElementById('btn-eliminar-ajax').addEventListener('click', function (event) {
     event.preventDefault();
 
-    //Obtener el ID del registro a eliminar
-    const idEliminar = document.getElementById('id-eliminar').value.trim();
+    const id = document.getElementById('id-eliminar').value.trim();
 
     // Validación
-    if (idEliminar === '') {
-        alert('El campo "ID" no puede estar vacío');
+    if (id === '') {
+        alert('Ingrese un ID válido');
         return;
     }
 
+    // Llamada AJAX para eliminar
     const xhr = new XMLHttpRequest();
-    xhr.open('DELETE', 'eliminar.php', true);
-    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+    xhr.open('DELETE', 'conexion.php?id=' + id, true);
     xhr.onload = function () {
         if (xhr.status === 200) {
-            console.log('Registro eliminado correctamente :D', xhr.responseText);
-            alert('Registro ELIMINADO con Exito');
+            console.log('Registro eliminado correctamente');
+            alert('Registro eliminado correctamente');
         } else {
-            console.error('Error al eliminar el registro:', xhr.statusText);
-            alert('Error al eliminar el registro');
+            console.error('Error:', xhr.statusText);
+            alert('Error al eliminar registro');
         }
     };
-    xhr.send(`id=${idEliminar}`);
+    xhr.send();
 });
+
 
 
 
