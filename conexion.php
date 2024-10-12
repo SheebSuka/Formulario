@@ -17,7 +17,29 @@ if (!$conn) {
     echo 'no :(';
 }
 
-// AQUI SE AGREGA
+if ($_SERVER['REQUEST_METHOD'] === 'PUT') {
+    parse_str(file_get_contents("php://input"), $_PUT);
+    $id = $_PUT['id'] ?? null;
+    $name = $_PUT['name'] ?? null;
+
+    if ($id && $name) {
+        $id = mysqli_real_escape_string($conn, $id);
+        $name = mysqli_real_escape_string($conn, $name);
+
+        $updateQuery = "UPDATE users SET name = '$name' WHERE id = '$id'";
+        
+        if (mysqli_query($conn, $updateQuery)) {
+            echo "Registro actualizado correctamente";
+        } else {
+            echo "Error al actualizar registro: " . mysqli_error($conn);
+        }
+    } else {
+        echo "Falta el ID o el nuevo nombre para actualizar.";
+    }
+    mysqli_close($conn);
+    exit();
+}
+// AQUI SE AGREGA DELETE
 // Verificar si el método HTTP es DELETE para eliminar
 if ($_SERVER['REQUEST_METHOD'] === 'DELETE') {
     $id = $_GET['id'];

@@ -152,3 +152,63 @@ document.addEventListener('DOMContentLoaded', function () {
             });
     });
 });
+
+//METODO ACTUALIZAR MEDIANTE AJAX
+document.getElementById('btn-actualizar-ajax').addEventListener('click', function (event) {
+    event.preventDefault();
+
+    const id = document.getElementById('id-actualizar').value.trim();
+    const newName = document.getElementById('nombre-actualizar').value.trim();
+
+    if (id === '' || newName === '') {
+        alert('Debe ingresar el ID y el nuevo nombre.');
+        return;
+    }
+
+    const xhr = new XMLHttpRequest();
+    xhr.open('PUT', 'conexion.php', true);
+    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+
+    xhr.onload = function () {
+        if (xhr.status === 200) {
+            console.log('Actualización con AJAX:', xhr.responseText);
+            alert(xhr.responseText);
+        } else {
+            console.error('Error:', xhr.statusText);
+            alert('Error al actualizar con AJAX');
+        }
+    };
+
+    xhr.send(`id=${id}&name=${newName}`);
+});
+
+//METODO ACTUALIZAR CON PHP Y JS
+document.getElementById('btn-actualizar-php').addEventListener('click', function (event) {
+    event.preventDefault();
+
+    const id = document.getElementById('id-actualizar').value.trim();
+    const newName = document.getElementById('nombre-actualizar').value.trim();
+
+    if (id === '' || newName === '') {
+        alert('Debe ingresar el ID y el nuevo nombre.');
+        return;
+    }
+
+    const formData = new FormData();
+    formData.append('id', id);
+    formData.append('name', newName);
+
+    fetch('conexion.php', {
+        method: 'POST', // Cambia a POST para manejarlo en PHP
+        body: formData
+    })
+        .then(response => response.text())
+        .then(data => {
+            console.log('Actualización con PHP:', data);
+            alert(data);
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('Error al actualizar con PHP');
+        });
+});
