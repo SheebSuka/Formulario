@@ -17,28 +17,6 @@ if (!$conn) {
     echo 'no :(';
 }
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $id = $_POST['id']?? null;
-    $name = $_POST['name']?? null;
-
-    if ($id && $name) {
-        $id = mysqli_real_escape_string($conn, $id);
-        $name = mysqli_real_escape_string($conn, $name);
-
-        $updateQuery = "UPDATE users SET name = '$name' WHERE id = '$id'";
-        
-        if (mysqli_query($conn, $updateQuery)) {
-            echo "Registro actualizado correctamente";
-        } else {
-            echo "Error al actualizar registro: ". mysqli_error($conn);
-        }
-    } else {
-        echo "Falta el ID o el nuevo nombre para actualizar.";
-    }
-    mysqli_close($conn);
-    exit();
-}
-
 // AQUI SE AGREGA DELETE
 // Verificar si el método HTTP es DELETE para eliminar
 if ($_SERVER['REQUEST_METHOD'] === 'DELETE') {
@@ -53,6 +31,28 @@ if ($_SERVER['REQUEST_METHOD'] === 'DELETE') {
     }
     mysqli_close($conn);
     exit(); // Termina aquí si se realizó la eliminación
+}
+
+// AQUI SE AGREGA UPDATE
+// Verificar si el método HTTP es POST para actualizar un registro
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $id = $_POST['id'] ?? null;
+    $name = $_POST['name'] ?? null;
+
+    if ($id && $name) {
+        $id = mysqli_real_escape_string($conn, $id);
+        $name = mysqli_real_escape_string($conn, $name);
+
+        $updateQuery = "UPDATE users SET name = '$name' WHERE id = '$id'";
+
+        if (mysqli_query($conn, $updateQuery)) {
+            echo "Registro actualizado correctamente";
+        } else {
+            echo "Error al actualizar registro: " . mysqli_error($conn);
+        }
+    } else {
+        echo "Falta el ID o el nuevo nombre para actualizar.";
+    }
 }
 
 // Si no es DELETE, se asume que es POST para inserción de datos
@@ -75,8 +75,6 @@ if (isset($data['name']) && isset($data['lastName']) && isset($data['gender']) &
     } else {
         echo "Error al insertar datos: " . mysqli_error($conn);
     }
-} else {
-    echo "No se recibieron todos los datos necesarios.";
 }
 
 // Cerrar la conexión

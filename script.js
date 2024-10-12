@@ -173,14 +173,14 @@ document.getElementById('btn-actualizar-php').addEventListener('click', function
         method: 'POST',
         body: formData
     })
-       .then(response => response.text())
-       .then(data => {
+        .then(response => response.text())
+        .then(data => {
             console.log('Actualización con FETCH:', data);
             alert(data);
         })
-       .catch(error => {
+        .catch(error => {
             console.error('Error:', error);
-            alert('Error al actualizar con FETCH');
+            alert('Error al actualizar el registro con FETCH');
         });
 });
 
@@ -204,7 +204,7 @@ document.getElementById('btn-actualizar-ajax').addEventListener('click', functio
             alert(xhr.responseText);
         } else {
             console.error('Error:', xhr.statusText);
-            alert('Error al actualizar con AJAX');
+            alert('Error al actualizar el registro con AJAX');
         }
     };
     xhr.send('id=' + id + '&name=' + newName);
