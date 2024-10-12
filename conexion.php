@@ -17,7 +17,7 @@ if (!$conn) {
     echo 'no :(';
 }
 
-// Verificar si el método HTTP es DELETE para eliminar
+// DELETE
 if ($_SERVER['REQUEST_METHOD'] === 'DELETE') {
     $id = $_GET['id'];
     $eliminar = "DELETE FROM users WHERE id = '$id'";
@@ -32,7 +32,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'DELETE') {
     exit(); // Termina aquí si se realizó la eliminación
 }
 
-// AQUI SE AGREGA UPDATE
+// UPDATE
 // Verificar si el método HTTP es POST para actualizar un registro
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $id = $_POST['id'] ?? null;
