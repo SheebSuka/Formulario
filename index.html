@@ -10,109 +10,84 @@
     <link rel="stylesheet" href="style.css">
 </head>
 
-
 <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <div class="container-fluid">
-            <span class="navbar-brand mb-0 h1">Formulario usuarios</span>
-        </div>
+    <nav class="navbar">
+        <h1>Formulario usuarios</h1>
     </nav>
 
-    <div class="container mt-5">
+    <div class="container">
         <div class="card">
-            <div class="card-body">
-                <h2 class="card-title">Formulario de usuarios</h2>
-                <form id="user-form">
-                    <div class="row mb-3">
-                        <label for="name" class="col-sm-2 col-form-label">Nombre</label>
-                        <div class="col-sm-10">
-                            <input type="text" class="form-control" id="name" name="name"
-                                placeholder="Ingrese su nombre">
-                        </div>
-                    </div>
-                    <div class="row mb-3">
-                        <label for="lastName" class="col-sm-2 col-form-label">Apellido</label>
-                        <div class="col-sm-10">
-                            <input type="text" class="form-control" id="lastName" name="lastName"
-                                placeholder="Ingrese su apellido">
-                        </div>
-                    </div>
-                    <div class="row mb-3">
-                        <label for="gender" class="col-sm-2 col-form-label">Género</label>
-                        <div class="col-sm-10">
-                            <select class="form-select" id="gender" name="gender">
-                                <option selected>Seleccione...</option>
-                                <option value="Female">Femenino</option>
-                                <option value="Male">Masculino</option>
-                                <option value="Other">Otro</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="row mb-3">
-                        <label for="date" class="col-sm-2 col-form-label">Fecha</label>
-                        <div class="col-sm-10">
-                            <input type="date" class="form-control" id="date" name="date">
-                        </div>
-                    </div>
-                    <div class="row mb-3">
-                        <div class="col-sm-10 offset-sm-2">
-                            <button type="submit" class="btn btn-primary" id="buttonFetch">Enviar con Fetch</button>
-                            <button type="submit" class="btn btn-primary" id="buttonAjax">Enviar con AJAX</button>
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </div>
+            <form name="users" id="user">
 
-        <div class="card mt-5">
-            <div class="card-body">
-                <h2 class="card-title">Eliminar usuario</h2>
+                <div class="form-group row"> <!-- Name Input -->
+                    <label for="name" class="col-sm-2 col-form-label">Name</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="name" name="name" placeholder="Name..">
+                    </div>
+                </div>
+
+                <div class="form-group row"> <!-- last name Input -->
+                    <label for="lastName" class="col-sm-2 col-form-label">Last Name</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="lastName" name="lastName" placeholder="Last Name..">
+                    </div>
+                </div>
+
+                <div class="form-group row"> <!-- Combobox Select (?) -->
+                    <label for="gender" class="col-sm-2 col-form-label">Gender</label>
+                    <div class="col-sm-10">
+                        <select name="gender" class="form-control" id="gender">
+                            <option selected>Choose...</option>
+                            <option value="Female">Female</option>
+                            <option value="Male">Male</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group row"> <!-- Date Time Input -->
+                    <label for="date" class="col-sm-2 col-form-label" name="date">Date</label>
+                    <div class="col-sm-10">
+                        <input type="date" class="form-control" name="date" id="date" pattern="\d{4}-\d{2}-\d{2}">
+                    </div>
+                </div>
+                <div class="form-group row container-button"> <!--Btn-->
+                    <button type="submit" class="btn btn-primary button" name="submit-fetch" id="buttonFetch">Enviar con
+                        Fetch</button>
+                    <button type="submit" class="btn btn-primary button" name="submit-ajax" id="buttonAjax">Enviar con
+                        AJAX</button>
+                </div>
                 <form id="form-eliminar">
-                    <div class="row mb-3">
-                        <label for="id-eliminar" class="col-sm-2 col-form-label">ID</label>
-                        <div class="col-sm-10">
-                            <input type="text" class="form-control" id="id-eliminar" placeholder="Ingrese el ID">
-                        </div>
+                    <div class="form-group">
+                        <label for="id-eliminar">Ingrese el ID</label>
+                        <input type="text" class="form-control" id="id-eliminar" placeholder="Ingrese el ID">
                     </div>
-                    <div class="row mb-3">
-                        <div class="col-sm-10 offset-sm-2">
-                            <button type="submit" class="btn btn-danger" id="btn-eliminar-ajax">Eliminar con
-                                AJAX</button>
-                            <button type="submit" class="btn btn-danger" id="btn-eliminar-php">Eliminar con PHP y
-                                JS</button>
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </div>
 
-        <div class="card mt-5">
-            <div class="card-body">
-                <h2 class="card-title">Actualizar usuario</h2>
-                <form id="form-actualizar">
-                    <div class="row mb-3">
-                        <label for="id-actualizar" class="col-sm-2 col-form-label">ID</label>
-                        <div class="col-sm-10">
-                            <input type="text" class="form-control" id="id-actualizar" placeholder="Ingrese el ID">
-                        </div>
-                    </div>
-                    <div class="row mb-3">
-                        <label for="nombre-actualizar" class="col-sm-2 col-form-label">Nombre</label>
-                        <div class="col-sm-10">
-                            <input type="text" class="form-control" id="nombre-actualizar"
-                                placeholder="Ingrese el nuevo nombre">
-                        </div>
-                    </div>
-                    <div class="row mb-3">
-                        <div class="col-sm-10 offset-sm-2">
-                            <button type="submit" class="btn btn-primary" id="btn-actualizar-ajax">Actualizar con
-                                AJAX</button>
-                            <button type="submit" class="btn btn-primary" id="btn-actualizar-php">Actualizar con PHP y
-                                JS</button>
-                        </div>
-                    </div>
                 </form>
-            </div>
+
+                <div class="form-group row container-button"> <!--Btn-->
+                    <button type="submit" class="btn btn-danger" id="btn-eliminar-ajax">Eliminar con AJAX</button>
+                    <button type="submit" class="btn btn-danger" id="btn-eliminar-php">Eliminar con PHP y JS</button>
+                </div>
+
+                <form id="form-actualizar">
+                    <div class="form-group">
+                        <label for="id-actualizar">Ingrese el ID</label>
+                        <input type="text" class="form-control" id="id-actualizar" placeholder="Ingrese el ID">
+                    </div>
+                    <div class="form-group">
+                        <label for="nombre-actualizar">Ingrese el nuevo nombre</label>
+                        <input type="text" class="form-control" id="nombre-actualizar"
+                            placeholder="Ingrese el nuevo nombre">
+                    </div>
+
+                </form>
+                <div class="form-group row container-button mb-3"> <!--Btn-->
+                    <button type="submit" class="btn btn-primary" id="btn-actualizar-ajax">Actualizar con AJAX</button>
+                    <button type="submit" class="btn btn-primary" id="btn-actualizar-php">Actualizar con PHP y
+                        JS</button>
+                </div>
+
         </div>
     </div>
 
