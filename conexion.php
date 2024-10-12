@@ -17,7 +17,6 @@ if (!$conn) {
     echo 'no :(';
 }
 
-// AQUI SE AGREGA DELETE
 // Verificar si el método HTTP es DELETE para eliminar
 if ($_SERVER['REQUEST_METHOD'] === 'DELETE') {
     $id = $_GET['id'];
@@ -79,3 +78,4 @@ if (isset($data['name']) && isset($data['lastName']) && isset($data['gender']) &
 
 // Cerrar la conexión
 mysqli_close($conn);
+?>
