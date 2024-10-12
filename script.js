@@ -153,7 +153,7 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 });
 
-//METODO ACTUALIZAR MEDIANTE AJAX
+//METODO ACTUALIZAR MEDIANTE FETCH
 document.getElementById('btn-actualizar-php').addEventListener('click', function (event) {
     event.preventDefault();
 
