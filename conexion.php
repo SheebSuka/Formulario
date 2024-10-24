@@ -1,7 +1,7 @@
 <?php
 
 header("Access-Control-Allow-Origin: *");
-header("Access-Control-Allow-Methods: POST, DELETE");
+header("Access-Control-Allow-Methods: POST, DELETE, GET");
 header("Access-Control-Allow-Headers: Content-Type");
 
 $servidor = 'localhost';
@@ -54,7 +54,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 
-// Si no es DELETE, se asume que es POST para inserción de datos
+// GET
+if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+    $query = "SELECT * FROM users"; // Ajusta "users" al nombre de tu tabla si es diferente
+    $result = mysqli_query($conn, $query);
+
+    $rows = array();
+    while ($row = mysqli_fetch_assoc($result)) {
+        $rows[] = $row;
+    }
+
+    // Devolver los datos en formato JSON
+    header('Content-Type: application/json');
+    echo json_encode($rows);
+    mysqli_close($conn);
+    exit(); // Termina la ejecución tras devolver los datos
+}
+
+// Si no es DELETE o GET, se asume que es POST para inserción de datos
 $input = file_get_contents('php://input');
 $data = json_decode($input, true);
 

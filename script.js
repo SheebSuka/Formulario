@@ -210,3 +210,69 @@ document.getElementById('btn-actualizar-ajax').addEventListener('click', functio
     };
     xhr.send('id=' + id + '&name=' + newName);
 });
+
+// Botón para imprimir datos con AJAX
+document.getElementById('printAjax').addEventListener('click', function () {
+    const xhr = new XMLHttpRequest();
+    xhr.open('GET', 'conexion.php', true); // Crear un nuevo endpoint en tu PHP para obtener los datos
+    xhr.onload = function () {
+        if (xhr.status === 200) {
+            const data = JSON.parse(xhr.responseText);
+            displayData(data); // Función para mostrar los datos en la sección
+        } else {
+            alert('Error al obtener los datos con AJAX');
+        }
+    };
+    xhr.send();
+});
+
+document.getElementById('printFetch').addEventListener('click', function () {
+    fetch('conexion.php') // Mismo endpoint para obtener los datos
+        .then(response => response.json())
+        .then(data => {
+            displayData(data); // Función para mostrar los datos en la sección
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('Error al obtener los datos con Fetch');
+        });
+});
+
+// Función para mostrar los datos en la sección #print-section
+function displayData(data) {
+    const printSection = document.getElementById('print-section');
+    printSection.innerHTML = ''; // Limpiar contenido previo
+
+    if (data.length === 0) {
+        printSection.innerHTML = '<p>No hay datos disponibles.</p>';
+        return;
+    }
+
+    const table = document.createElement('table');
+    table.classList.add('table', 'table-striped');
+    const thead = document.createElement('thead');
+    thead.innerHTML = `
+        <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Apellido</th>
+            <th>Género</th>
+            <th>Fecha</th>
+        </tr>`;
+    table.appendChild(thead);
+
+    const tbody = document.createElement('tbody');
+    data.forEach(row => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+            <td>${row.id}</td>
+            <td>${row.name}</td>
+            <td>${row.lastName}</td>
+            <td>${row.gender}</td>
+            <td>${row.date}</td>`;
+        tbody.appendChild(tr);
+    });
+    table.appendChild(tbody);
+
+    printSection.appendChild(table);
+}
