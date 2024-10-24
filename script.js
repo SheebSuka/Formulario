@@ -219,6 +219,7 @@ document.getElementById('printAjax').addEventListener('click', function () {
         if (xhr.status === 200) {
             const data = JSON.parse(xhr.responseText);
             displayData(data); // Función para mostrar los datos en la sección
+            console.log(data);
         } else {
             alert('Error al obtener los datos con AJAX');
         }
@@ -231,6 +232,7 @@ document.getElementById('printFetch').addEventListener('click', function () {
         .then(response => response.json())
         .then(data => {
             displayData(data); // Función para mostrar los datos en la sección
+            console.log(data);
         })
         .catch(error => {
             console.error('Error:', error);
